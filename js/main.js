@@ -23,11 +23,18 @@ function init() {
 
     navlinks.forEach((link, id) => {
         link.addEventListener('click', () => {
-            navlinks.forEach(link => link.classList.remove('nav__link--active'));
+            let prevLink;
+            navlinks.forEach(link => {
+                if (link.classList.contains('nav__link--active')) {
+                    link.classList.remove('nav__link--active');
+                    prevLink = link;
+                }
+            });
             link.classList.add('nav__link--active');
             const tag = link.getAttribute('data-tag');
+            const prevTag = prevLink.getAttribute('data-tag');
             const img = link.getAttribute('data-img');
-            backSpace(heading, 80, tag.length, () => {
+            backSpace(heading, 80, prevTag.length, () => {
                 forwardSpace(heading, 80, tag);
             });
             mask.classList.add('unfold-from-left');
