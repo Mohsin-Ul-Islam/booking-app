@@ -7,6 +7,8 @@ const heading = document.querySelector('.heading__styled');
 const bg = document.querySelector('.right');
 const mask = document.querySelector('.left');
 
+let clickProgress = false;
+
 const locations = [
     'Quetta, Balochistan',
     'Karachi, Sindh',
@@ -23,6 +25,8 @@ function init() {
 
     navlinks.forEach((link, id) => {
         link.addEventListener('click', () => {
+            if (clickProgress) return;
+            clickProgress = true;
             let prevLink;
             navlinks.forEach(link => {
                 if (link.classList.contains('nav__link--active')) {
@@ -41,6 +45,7 @@ function init() {
             mask.onanimationend = () => {
                 bg.style.backgroundImage = `url(./images/${img})`;
                 mask.classList.remove('unfold-from-left');
+                clickProgress = false;
             }
         });
     });
